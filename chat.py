@@ -18,14 +18,14 @@ st.set_page_config(page_title="AI Echo — Sentiment Dashboard", layout="wide")
 #  LOAD MODEL
 import os
 
-DATA_PATH = "chatgpt_style_reviews_dataset.csv"
+data_path = "chatgpt_style_reviews_dataset.csv"
 
-if os.path.exists(DATA_PATH):
-    df = pd.read_excel(DATA_PATH)
+if os.path.exists(data_path):
+    df = pd.read_excel(data_path)
 else:
     st.error("Dataset file not found. Please check the path.")
     st.stop()
-#model_path = r"D:\AiEcho\NLP_model.pkl"
+model_path = r"D:\AiEcho\NLP_model.pkl"
 
 try:
     nlp_model = pickle.load(open("nlp_model.pkl", "rb"))
@@ -344,5 +344,6 @@ elif selected == "📈 Sentiment Analysis":
     st.pyplot(fig9)
 else:
     st.warning("No negative reviews found for keyword extraction.")
+
 
 
