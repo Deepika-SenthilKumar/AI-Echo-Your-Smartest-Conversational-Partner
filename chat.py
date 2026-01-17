@@ -16,7 +16,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 st.set_page_config(page_title="AI Echo — Sentiment Dashboard", layout="wide")
 
-model_path = r"D:\AiEcho\NLP_model.pkl"
+model_path = r"D:\AiEcho\nlp_model.pkl"
 
 try:
     nlp_model = pickle.load(open("nlp_model.pkl", "rb"))
@@ -335,6 +335,7 @@ elif selected == "📈 Sentiment Analysis":
     st.pyplot(fig9)
 else:
     st.warning("No negative reviews found for keyword extraction.")
+
 
 
 
