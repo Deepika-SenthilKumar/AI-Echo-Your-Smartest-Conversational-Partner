@@ -18,7 +18,7 @@ st.set_page_config(page_title="AI Echo — Sentiment Dashboard", layout="wide")
 #  LOAD MODEL
 import os
 
-DATA_PATH = "chatgpt_style_reviews_dataset.xlsx"
+DATA_PATH = "chatgpt_style_reviews_dataset.csv"
 
 if os.path.exists(DATA_PATH):
     df = pd.read_excel(DATA_PATH)
@@ -344,4 +344,5 @@ elif selected == "📈 Sentiment Analysis":
     st.pyplot(fig9)
 else:
     st.warning("No negative reviews found for keyword extraction.")
+
 
