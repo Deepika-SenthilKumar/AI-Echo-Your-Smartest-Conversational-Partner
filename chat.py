@@ -20,7 +20,7 @@ st.set_page_config(page_title="AI Echo — Sentiment Dashboard", layout="wide")
 model_path = r"D:\AiEcho\NLP_model.pkl"
 
 try:
-    NLP_model = pickle.load(open("nlp_model.pkl", "rb"))
+    nlp_model = pickle.load(open("nlp_model.pkl", "rb"))
     tfidf = pickle.load(open("tfidf_vectorizer.pkl", "rb"))
 
 
