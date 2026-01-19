@@ -127,18 +127,33 @@ if selected == "💬 AI Echo Sentiment Analysis":
 elif selected == "📈 Sentiment Analysis":
     st.title("📊 AI Echo Sentiment Dashboard")
 
-    # FIX 1: Ensure the 'sentiment' column exists before trying to use it
+    # 1. Fix Review Column: If 'clean_review' is missing, look for 'review' or use first text column
+    if 'clean_review' not in df.columns:
+        if 'review' in df.columns:
+            df['clean_review'] = df['review']
+        else:
+            # Fallback: Find the first column that contains text/strings
+            text_cols = df.select_dtypes(include=['object']).columns
+            if len(text_cols) > 0:
+                df['clean_review'] = df[text_cols[0]]
+            else:
+                df['clean_review'] = "No text available"
+
+    # 2. Fix Sentiment Column: Create from rating if it doesn't exist
     if 'sentiment' not in df.columns:
         if 'rating' in df.columns:
-            # Create sentiment based on ratings if missing
             df['sentiment'] = df['rating'].apply(lambda x: 'Positive' if x >= 4 else ('Neutral' if x == 3 else 'Negative'))
         else:
-            st.error("Error: The dataset does not contain a 'sentiment' or 'rating' column.")
-            st.stop()
+            df['sentiment'] = 'Unknown'
 
-    # FIX 2: Ensure 'review_length' exists
+    # 3. Fix Review Length
     if 'review_length' not in df.columns:
         df['review_length'] = df['clean_review'].astype(str).apply(len)
+
+    # 4. Fix Date Column
+    if 'date' in df.columns:
+        df['date'] = pd.to_datetime(df['date'], errors='coerce')
+        df = df.dropna(subset=['date'])
 
     # Styling
     st.markdown("""
@@ -365,6 +380,7 @@ elif selected == "📈 Sentiment Analysis":
     st.pyplot(fig9)
 else:
     st.warning("No negative reviews found for keyword extraction.")
+
 
 
 
