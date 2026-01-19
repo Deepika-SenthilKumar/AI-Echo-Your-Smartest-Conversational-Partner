@@ -166,26 +166,6 @@ elif selected == "📈 Sentiment Analysis":
     sns.set_style("darkgrid")
     neon_colors = ["#FF66B3", "#FFD700", "#40E0D0", "#A569BD", "#FF6F61"]
 
-# elif selected == "📈 Sentiment Analysis":
-#     st.title("📊 AI Echo Sentiment Dashboard")
-
-#     # Styling
-#     st.markdown("""
-#     <style>
-#     body, .stApp {
-#         background-color: #0E1117;
-#         color: #FAFAFA;
-#     }
-#     h1, h2, h3, h4 {
-#         color: #F6F6F6 !important;
-#     }
-#     </style>
-#     """, unsafe_allow_html=True)
-
-#     sns.set_style("darkgrid")
-#     sns.set_palette("bright")
-#     neon_colors = ["#FF66B3", "#FFD700", "#40E0D0", "#A569BD", "#FF6F61", "#58D68D", "#F5B041"]
-
     # ==================== Q1 ====================
     st.header("1️⃣ Overall Sentiment of User Reviews")
     sentiment_counts = df['sentiment'].value_counts()
@@ -380,6 +360,7 @@ elif selected == "📈 Sentiment Analysis":
     st.pyplot(fig9)
 else:
     st.warning("No negative reviews found for keyword extraction.")
+
 
 
 
