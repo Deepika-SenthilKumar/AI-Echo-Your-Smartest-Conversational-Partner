@@ -123,25 +123,53 @@ if selected == "💬 AI Echo Sentiment Analysis":
 # ──────────────────────────────────────────────
 # 📊 SENTIMENT ANALYSIS DASHBOARD PAGE
 # ──────────────────────────────────────────────
+
 elif selected == "📈 Sentiment Analysis":
     st.title("📊 AI Echo Sentiment Dashboard")
+
+    # FIX 1: Ensure the 'sentiment' column exists before trying to use it
+    if 'sentiment' not in df.columns:
+        if 'rating' in df.columns:
+            # Create sentiment based on ratings if missing
+            df['sentiment'] = df['rating'].apply(lambda x: 'Positive' if x >= 4 else ('Neutral' if x == 3 else 'Negative'))
+        else:
+            st.error("Error: The dataset does not contain a 'sentiment' or 'rating' column.")
+            st.stop()
+
+    # FIX 2: Ensure 'review_length' exists
+    if 'review_length' not in df.columns:
+        df['review_length'] = df['clean_review'].astype(str).apply(len)
 
     # Styling
     st.markdown("""
     <style>
-    body, .stApp {
-        background-color: #0E1117;
-        color: #FAFAFA;
-    }
-    h1, h2, h3, h4 {
-        color: #F6F6F6 !important;
-    }
+    .stApp { background-color: #0E1117; color: #FAFAFA; }
+    h1, h2, h3, h4 { color: #F6F6F6 !important; }
     </style>
     """, unsafe_allow_html=True)
 
     sns.set_style("darkgrid")
-    sns.set_palette("bright")
-    neon_colors = ["#FF66B3", "#FFD700", "#40E0D0", "#A569BD", "#FF6F61", "#58D68D", "#F5B041"]
+    neon_colors = ["#FF66B3", "#FFD700", "#40E0D0", "#A569BD", "#FF6F61"]
+
+# elif selected == "📈 Sentiment Analysis":
+#     st.title("📊 AI Echo Sentiment Dashboard")
+
+#     # Styling
+#     st.markdown("""
+#     <style>
+#     body, .stApp {
+#         background-color: #0E1117;
+#         color: #FAFAFA;
+#     }
+#     h1, h2, h3, h4 {
+#         color: #F6F6F6 !important;
+#     }
+#     </style>
+#     """, unsafe_allow_html=True)
+
+#     sns.set_style("darkgrid")
+#     sns.set_palette("bright")
+#     neon_colors = ["#FF66B3", "#FFD700", "#40E0D0", "#A569BD", "#FF6F61", "#58D68D", "#F5B041"]
 
     # ==================== Q1 ====================
     st.header("1️⃣ Overall Sentiment of User Reviews")
@@ -337,6 +365,7 @@ elif selected == "📈 Sentiment Analysis":
     st.pyplot(fig9)
 else:
     st.warning("No negative reviews found for keyword extraction.")
+
 
 
 
