@@ -14,6 +14,16 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import CountVectorizer
 
+DATA_PATH = "chatgpt_style_reviews_dataset.csv"
+
+if os.path.exists(DATA_PATH):
+    df = pd.read_csv(DATA_PATH)
+    st.success("Dataset loaded successfully ✅")
+else:
+    st.error("Dataset file not found. Please check the path.")
+    st.stop()
+
+
 st.set_page_config(page_title="AI Echo — Sentiment Dashboard", layout="wide")
 
 model_path = r"D:\AiEcho\nlp_model.pkl"
@@ -335,6 +345,7 @@ elif selected == "📈 Sentiment Analysis":
     st.pyplot(fig9)
 else:
     st.warning("No negative reviews found for keyword extraction.")
+
 
 
 
